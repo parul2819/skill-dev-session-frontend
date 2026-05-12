@@ -1,6 +1,6 @@
 import React, {Suspense, lazy, useEffect, useState} from "react";
 import ReactDOM from "react-dom/client"
-import {Provider} from "react-redux";
+import {Provider, useSelector} from "react-redux";
 import {createBrowserRouter, RouterProvider, Outlet} from "react-router";
 import "./index.css";
 import Header from "./components/Header"
@@ -41,7 +41,7 @@ const RestaurantInfo = lazy(() => import("./components/RestaurantInfo"));
 const Footer = () => {}
 
 const AppLayout = () => {
-
+    const isDarkMode = useSelector((store) => store.theme.isDarkMode);
     const [userName, setUserName] = useState("")
 
     useEffect(() => {
@@ -52,17 +52,18 @@ const AppLayout = () => {
         setUserName("New User")
     }, [])
         return (
-            <Provider store={appStore}>
             <UserContext.Provider value={{ userName: userName,
               email : "guest@mail.com", phone: "1111",
               setUserName: setUserName, isAuthenticated: false }}>
-            <div id="app-layout">
+            <div
+              id="app-layout"
+              className={isDarkMode ? "bg-black text-white min-h-screen" : "bg-white text-black min-h-screen"}
+            >
               <Header />
               <Outlet />
               <Footer />
             </div>
           </UserContext.Provider>
-          </Provider>
         );
         };
 
@@ -113,4 +114,8 @@ const appRouter = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById("root"))
 // root.render(<AppLayout />)
-root.render(<RouterProvider router={appRouter} />);
+root.render(
+    <Provider store={appStore}>
+        <RouterProvider router={appRouter} />
+    </Provider>
+);

@@ -1,15 +1,19 @@
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useState} from "react";
+import { useDispatch } from "react-redux";
 import { APP_LOGO_URL } from "../utils/constants"
 import {Link} from "react-router";
 import UserContext from "../utils/UserContext";
 import {useSelector} from "react-redux";
+import {setDark, setLight} from "../utils/themeSlice";
 
 const Header = () => { 
 
   const { userName, email, phone, setUserName } = useContext(UserContext);
-
+  const dispatch = useDispatch()
   const cartItems = useSelector(store => store.cart.items);
-  console.log(cartItems)
+  const isDarkMode = useSelector(store => store.theme.isDarkMode);
+  const [ showThemeMenu, setShowThemeMenu ] = useState(false)
+  console.log('cartItems - ', cartItems)
 
   // useEffect(() => {
   //   const timer = setTimeout(() => {
@@ -20,9 +24,10 @@ const Header = () => {
 
   return (
   <div>
-    <div id="header" className="flex p-4 justify-between h-[60px]
-    fixed bg-white w-[calc(100%-32px)] z-[1]
-    shadow-[5px_5px_8px_aliceblue]" >
+    <div id="header" className={`flex p-4 justify-between h-[60px]
+    fixed w-[calc(100%-32px)] z-[1]
+    shadow-[5px_5px_8px_aliceblue]
+    ${isDarkMode ? "bg-black text-white" : "bg-white text-black"}`} >
 
       <div id="logo" className="w-[50px] h-[50px]">
         <img className="w-[50px] h-[50px] rounded-full"
@@ -38,6 +43,13 @@ const Header = () => {
           <li className="p-[10px] m-[0px_10px] cursor-pointer hover:bg-violet-600">Login</li>
           <li className="p-[10px] m-[0px_10px] cursor-pointer hover:bg-violet-600"><Link to="/cart">Cart - { cartItems.length }</Link></li>
           <li className="p-[10px] m-[0px_10px] cursor-pointer hover:bg-violet-600"><Link to="/">{ userName }</Link></li>
+          <li className="relative p-[10px] m-[0px_10px] cursor-pointer hover:bg-violet-600">
+              <button type="button" onClick={() => setShowThemeMenu(!showThemeMenu)}>Theme</button>
+              <div className={`${showThemeMenu ? "block" : "hidden"} absolute top-full right-0 mt-2 ${isDarkMode ? "bg-black text-white" : "bg-white text-black"} border shadow-md flex flex-col z-10 `}>
+                  <button type="button" className="px-3 py-2 text-left hover:bg-violet-600" onClick={() => dispatch(setLight())}>Light</button>
+                  <button type="button" className="px-3 py-2 text-left hover:bg-violet-600" onClick={() => dispatch(setDark())}>Dark</button>
+              </div>
+          </li>
       </ul>
     </div>
   </div>

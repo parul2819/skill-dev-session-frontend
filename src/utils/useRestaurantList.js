@@ -16,7 +16,7 @@ const useRestaurantList = () => {
             const data = await fetch(RESTAURANT_API_URL);
             const jsonData = await data.json();
 
-            setRestaurantList(jsonData);
+            setRestaurantList(jsonData.slice(0, 20));
         } catch (err) {
             setError(err.message);
         } finally {

@@ -1,11 +1,11 @@
 import {configureStore} from "@reduxjs/toolkit";
-import cart  from "./cartSlice";
+import cart from "./cartSlice";
+import theme from "./themeSlice"
 
-console.log("cart - ", { cart })
 const appStore = configureStore({
     reducer:{
         cart,
-        // thene
+        theme,
         // user
     }
 });
