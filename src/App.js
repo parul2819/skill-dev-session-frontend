@@ -1,14 +1,19 @@
 import React, {Suspense, lazy, useEffect, useState} from "react";
 import ReactDOM from "react-dom/client"
+import {Provider} from "react-redux";
+import {createBrowserRouter, RouterProvider, Outlet} from "react-router";
 import "./index.css";
 import Header from "./components/Header"
 import RestaurantContainer from "./components/RestaurantContainer";
 import About from "./components/About";
-import {createBrowserRouter, RouterProvider, Outlet} from "react-router";
+
 import PrivateRoute from "./components/PrivateRoute";
 import Cart from "./components/Cart";
 import Profile from "./components/Profile";
 import UserContext from "./utils/UserContext";
+import appStore from "./utils/appStore";
+import cart from "./utils/cartSlice";
+
 
 const RestaurantInfo = lazy(() => import("./components/RestaurantInfo"));
 
@@ -47,17 +52,19 @@ const AppLayout = () => {
         setUserName("New User")
     }, [])
         return (
-  <UserContext.Provider value={{ userName: userName,
-      email : "guest@mail.com", phone: "1111",
-      setUserName: setUserName, isAuthenticated: false }}>
-    <div id="app-layout">
-      <Header />
-      <Outlet />
-      <Footer />
-    </div>
-  </UserContext.Provider>
-);
-};
+            <Provider store={appStore}>
+            <UserContext.Provider value={{ userName: userName,
+              email : "guest@mail.com", phone: "1111",
+              setUserName: setUserName, isAuthenticated: false }}>
+            <div id="app-layout">
+              <Header />
+              <Outlet />
+              <Footer />
+            </div>
+          </UserContext.Provider>
+          </Provider>
+        );
+        };
 
 const appRouter = createBrowserRouter([
     {

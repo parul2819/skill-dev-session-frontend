@@ -2,17 +2,21 @@ import {useContext, useEffect} from "react";
 import { APP_LOGO_URL } from "../utils/constants"
 import {Link} from "react-router";
 import UserContext from "../utils/UserContext";
+import {useSelector} from "react-redux";
 
 const Header = () => { 
 
   const { userName, email, phone, setUserName } = useContext(UserContext);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setUserName("User from Header")
-  }, 3000)
-      return () => clearTimeout(timer)
-  }, [setUserName])
+  const cartItems = useSelector(store => store.cart.items);
+  console.log(cartItems)
+
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setUserName("User from Header")
+  // }, 3000)
+  //     return () => clearTimeout(timer)
+  // }, [setUserName])
 
   return (
   <div>
@@ -32,7 +36,7 @@ const Header = () => {
           <li className="p-[10px] m-[0px_10px] cursor-pointer hover:text-orange-600"><Link to="/">Home</Link></li>
           <li className="p-[10px] m-[0px_10px] cursor-pointer hover:bg-violet-600"><Link to="/about">About</Link></li>
           <li className="p-[10px] m-[0px_10px] cursor-pointer hover:bg-violet-600">Login</li>
-          <li className="p-[10px] m-[0px_10px] cursor-pointer hover:bg-violet-600"><Link to="/cart">Cart</Link></li>
+          <li className="p-[10px] m-[0px_10px] cursor-pointer hover:bg-violet-600"><Link to="/cart">Cart - { cartItems.length }</Link></li>
           <li className="p-[10px] m-[0px_10px] cursor-pointer hover:bg-violet-600"><Link to="/">{ userName }</Link></li>
       </ul>
     </div>

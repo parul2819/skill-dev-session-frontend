@@ -6,21 +6,22 @@ const RestaurantContainer = () => {
 
     const { restaurantList, isLoading, error } = useRestaurantList();
 
-     useEffect(() => {
-        let count = 0;
-        const interval = setInterval(() => {
-            count++
-            console.log("set interval", count);
-    }, 3000)
-
-         const timeoutID = setTimeout(() => {
-             console.log("setTimeout after 10 ms")
-         }, 10000)
-         return () => {
-            clearInterval(interval)
-             clearTimeout(timeoutID)
-         }
-    }, []);
+    // useEffect(() => {
+    //     let count = 0;
+    //     const interval = setInterval(() => {
+    //         count++;
+    //         console.log("set interval", count);
+    //     }, 3000);
+    //
+    //     const timeoutID = setTimeout(() => {
+    //         console.log("setTimeout after 10 ms");
+    //     }, 10000);
+    //
+    //     return () => {
+    //         clearInterval(interval);
+    //         clearTimeout(timeoutID);
+    //     };
+    // }, []);
 
     if (isLoading) {
         return <div className="restaurant-container p-4 flex flex-wrap relative top-[80px]">Loading restaurants...</div>;
