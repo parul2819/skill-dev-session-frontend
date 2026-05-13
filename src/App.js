@@ -10,6 +10,7 @@ import About from "./components/About";
 import PrivateRoute from "./components/PrivateRoute";
 import Cart from "./components/Cart";
 import Profile from "./components/Profile";
+import UnauthorizedAccess from "./components/UnauthorizedAccess";
 import UserContext from "./utils/UserContext";
 import appStore from "./utils/appStore";
 import cart from "./utils/cartSlice";
@@ -89,25 +90,27 @@ const appRouter = createBrowserRouter([
                 )
             },
             {
-                path: "/unauthorized",
-                element: <h1>401 - Unauthorized</h1>
-            },
-            {
                 path: "/cart",
                 element: (
-                    <PrivateRoute component={<Cart />} fallback="/unauthorized" />
+                    <PrivateRoute component={<Cart />} fallback="/unauthorizedaccess" />
                 )
             },
             {
                 path: "/profile",
                 element: (
-                    <PrivateRoute component={<Profile />} fallback="/unauthorized" />
+                    <PrivateRoute component={<Profile />} fallback="/unauthorizedaccess" />
+                )
+            },
+            {
+                path: "/unauthorizedaccess",
+                element: (
+                    <UnauthorizedAccess />
                 )
             },
             {
                 path: "*",
                 element: <h1> 404 - Page Not Found</h1>
-            }
+            },
         ]
     }
 ]);
