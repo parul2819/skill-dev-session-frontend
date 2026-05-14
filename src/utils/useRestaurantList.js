@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { RESTAURANT_API_URL } from "./api";
+import axios from "axios";
+import api from "./api"
 
 const useRestaurantList = () => {
 
@@ -8,19 +10,32 @@ const useRestaurantList = () => {
     const [error, setError] = useState("");
 
     useEffect(() => {
-        fetchRestaurantData();
-    }, []);
+    const controller = new AbortController();
 
-    const fetchRestaurantData = async () => {
+    controller.signal.addEventListener("abort", () => {
+        console.log(controller.signal.reason);
+    });
+
+    fetchRestaurantData(controller.signal);
+
+    return () => controller.abort("Restaurant list request aborted");
+}, []);
+
+    const fetchRestaurantData = async (signal) => {
         try {
-            const data = await fetch(RESTAURANT_API_URL);
-            const jsonData = await data.json();
+            const response = await api.get(RESTAURANT_API_URL, { signal });
 
-            setRestaurantList(jsonData.slice(0, 20));
+            // setRestaurantList(response.data.slice(0, 20));
+            setRestaurantList(Array.isArray(response.data) ? response.data.slice(0, 20) : response.data.results || []);
         } catch (err) {
-            setError(err.message);
+            if (err.name === "CanceledError" || err.name === "AbortError") {
+            return;
+        }
+            setError( err.message )
         } finally {
-            setIsLoading(false);
+            if (!signal?.aborted) {
+                setIsLoading(false);
+            }
         }
     }
 

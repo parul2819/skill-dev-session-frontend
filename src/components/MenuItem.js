@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useDispatch } from "react-redux";
 import {addItem, clearCart, removeItem} from "../utils/cartSlice";
+import axios from "axios";
 
 const MenuItem = () => {
   const { restaurantId } = useParams();
@@ -11,29 +12,17 @@ const MenuItem = () => {
   const [error, setError] = useState("");
 
 
-
-
-
-
-
-
-
-
-
   useEffect(() => {
     const fetchMenuItems = async () => {
       try {
         setLoading(true);
         setError("");
 
-        const response = await fetch("http://127.0.0.1:8000/menu-items/");
+        // const response = await fetch("http://127.0.0.1:8000/menu-items/");
+        const response = await axios.get("http://127.0.0.1:8000/menu-items/");
 
-        if (!response.ok) {
-          throw new Error(`Failed to load menu items: ${response.status}`);
-        }
-
-        const data = await response.json();
-        const allMenuItems = Array.isArray(data) ? data : data.results || [];
+        // const data = await response.json();
+        const allMenuItems = Array.isArray(response.data) ? response.data : response.data.results || [];
         const filteredMenuItems = allMenuItems.filter(
           (item) => item.restaurant_id === Number(restaurantId)
         );
@@ -50,21 +39,6 @@ const MenuItem = () => {
       fetchMenuItems();
     }
   }, [restaurantId]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   if (loading) return <div className="p-4">Loading menu items...</div>;
