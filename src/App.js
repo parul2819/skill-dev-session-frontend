@@ -3,20 +3,19 @@ import ReactDOM from "react-dom/client"
 import {Provider, useSelector} from "react-redux";
 import {createBrowserRouter, RouterProvider, Outlet} from "react-router";
 import "./index.css";
-import Header from "./components/Header"
-import RestaurantContainer from "./components/RestaurantContainer";
+import Header from "./shared/Header"
+import RestaurantContainer from "./features/restaurant/RestaurantContainer";
 import About from "./components/About";
 
-import PrivateRoute from "./components/PrivateRoute";
-import Cart from "./components/Cart";
+import PrivateRoute from "./shared/PrivateRoute";
+import Cart from "./features/cart/Cart";
 import Profile from "./components/Profile";
 import UnauthorizedAccess from "./components/UnauthorizedAccess";
 import UserContext from "./utils/UserContext";
 import appStore from "./utils/appStore";
-import cart from "./utils/cartSlice";
 
 
-const RestaurantInfo = lazy(() => import("./components/RestaurantInfo"));
+const RestaurantInfo = lazy(() => import("./features/restaurant/RestaurantInfo"));
 
 /**
  * APP LAYOUT
@@ -55,7 +54,7 @@ const AppLayout = () => {
         return (
             <UserContext.Provider value={{ userName: userName,
               email : "guest@mail.com", phone: "1111",
-              setUserName: setUserName, isAuthenticated: false }}>
+              setUserName: setUserName, isAuthenticated: true }}>
             <div
               id="app-layout"
               className={isDarkMode ? "bg-black text-white min-h-screen" : "bg-white text-black min-h-screen"}
@@ -116,7 +115,6 @@ const appRouter = createBrowserRouter([
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"))
-// root.render(<AppLayout />)
 root.render(
     <Provider store={appStore}>
         <RouterProvider router={appRouter} />

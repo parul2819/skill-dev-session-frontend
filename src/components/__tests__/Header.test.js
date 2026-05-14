@@ -1,6 +1,6 @@
 import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
-import Header from "../Header";
+import Header from "../../shared/Header";
 import {render, screen} from "@testing-library/react";
 import appStore from "../../utils/appStore";
 

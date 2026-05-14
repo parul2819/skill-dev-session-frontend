@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { RESTAURANT_API_URL } from "./api";
-import axios from "axios";
-import api from "./api"
+import api from "../../utils/api"
+import { RESTAURANT_API_URL } from "../../utils/api";
 
 const useRestaurantList = () => {
 

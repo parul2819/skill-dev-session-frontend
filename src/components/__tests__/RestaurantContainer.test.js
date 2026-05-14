@@ -1,4 +1,4 @@
-import RestaurantContainer from "../RestaurantContainer";
+import RestaurantContainer from "../../features/restaurant/RestaurantContainer";
 import { render } from "@testing-library/react";
 import MockData from "../../utils/mockData";
 

@@ -1,5 +1,5 @@
 import RestaurantCard from "./RestaurantCard";
-import useRestaurantList from "../utils/useRestaurantList";
+import useRestaurantList from "./useRestaurantList";
 import {useEffect} from "react";
 
 const RestaurantContainer = () => {

@@ -1,7 +1,7 @@
 import {useContext} from "react";
-import UserContext from "../utils/UserContext";
 import {useSelector} from "react-redux";
 import { Link } from "react-router";
+import UserContext from "../../utils/UserContext";
 
 const RestaurantCard = (props) => {
   const { userName } = useContext(UserContext);

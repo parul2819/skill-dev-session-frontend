@@ -1,10 +1,9 @@
 import {useContext, useEffect, useState} from "react";
-import { useDispatch } from "react-redux";
-import { APP_LOGO_URL } from "../utils/constants"
+import { useDispatch, useSelector } from "react-redux";
 import {Link} from "react-router";
 import UserContext from "../utils/UserContext";
-import {useSelector} from "react-redux";
 import {setDark, setLight} from "../utils/themeSlice";
+import { APP_LOGO_URL } from "../utils/constants"
 
 const Header = () => { 
 
@@ -51,7 +50,7 @@ const Header = () => {
               </div>
           </li>
       </ul>
-    </div>  
+    </div>
   </div>
   </div>
   );
