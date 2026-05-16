@@ -1,13 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { useDispatch } from "react-redux";
-import {addItem, clearCart, removeItem} from "../cart/cartSlice";
+import {useSelector} from "react-redux";
 import MenuItemCard from "./MenuItemCard";
+import MenuItemCount from "./MenuItemCount";
 
 const MenuItem = () => {
-  const { restaurantId } = useParams();
-  const dispatch = useDispatch();
+  const {restaurantId} = useParams();
+  const menuItemCount = useSelector((store) => store.cart.items);
   const [menuItems, setMenuItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -20,12 +20,17 @@ const MenuItem = () => {
         setError("");
 
         // const response = await fetch("http://127.0.0.1:8000/menu-items/");
-        const response = await axios.get("http://127.0.0.1:8000/menu-items/"); //correct this + constant --- menu-items
+        const menuItemsResponse = await axios.get(
+            "http://127.0.0.1:8000/menu-items/"
+        );
 
         // const data = await response.json();
-        const allMenuItems = Array.isArray(response.data) ? response.data : response.data.results || [];
+        const allMenuItems = Array.isArray(menuItemsResponse.data)
+            ? menuItemsResponse.data
+            : menuItemsResponse.data.results || [];
+
         const filteredMenuItems = allMenuItems.filter(
-          (item) => item.restaurant_id === Number(restaurantId)
+            (item) => item.restaurant_id === Number(restaurantId)
         );
 
         setMenuItems(filteredMenuItems);
@@ -41,48 +46,32 @@ const MenuItem = () => {
     }
   }, [restaurantId]);
 
-
   if (loading) return <div className="p-4">Loading menu items...</div>;
   if (error) return <div className="p-4">Error: {error}</div>;
-  if (!menuItems.length) return <div className="p-4">No menu items found.</div>;
+
+  if (!menuItems.length)
+    return <div className="p-4">No menu items found.</div>;
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-semibold mb-4">Menu Items</h2>
+      <div className="p-4">
+        <h2 className="text-xl font-semibold mb-4">Menu Items</h2>
 
-      <div className="space-y-3">
-        {menuItems.map((item) => (
-        <div key={item.item_id} className="border border-gray-200 p-4 rounded-md flex items-start justify-between gap-4">
-          <MenuItemCard item={item} />
+        <div className="space-y-3">
+          {menuItems.map((item) => {
+            return (
+                <div
+                    key={item.item_id}
+                    className="border border-gray-200 p-4 rounded-md flex items-start justify-between gap-4"
+                >
+                  <MenuItemCard item={item}/>
+                  <MenuItemCount item={item} menuItemCount={menuItemCount} />
 
-          <button
-            type="button"
-            className="shrink-0 px-4 py-2 rounded-md border border-green-600 text-green-700 font-medium hover:bg-green-600 hover:text-white transition-colors"
-            onClick={() => dispatch(addItem(item))}
-          >
-            Add
-          </button>
-
-          <button
-            type="button"
-            className="shrink-0 px-4 py-2 rounded-md border border-green-600 text-green-700 font-medium hover:bg-green-600 hover:text-white transition-colors"
-            onClick={() => dispatch(removeItem(item.item_id))}
-          >
-            Remove This Item
-          </button>
-
-          <button
-            type="button"
-            className="shrink-0 px-4 py-2 rounded-md border border-green-600 text-green-700 font-medium hover:bg-green-600 hover:text-white transition-colors"
-            onClick={() => dispatch(clearCart())}
-          >
-            Remove All Items
-          </button>
+                </div>
+            );
+          })}
         </div>
-      ))}
       </div>
-    </div>
   );
-};
+}
 
 export default MenuItem;
