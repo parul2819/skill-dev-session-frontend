@@ -13,7 +13,7 @@ const Header = () => {
   const isDarkMode = useSelector(store => store.theme.isDarkMode);
   const [ showThemeMenu, setShowThemeMenu ] = useState(false)
   console.log('cartItems - ', cartItems)
-
+  //
   // useEffect(() => {
   //   const timer = setTimeout(() => {
   //     setUserName("User from Header")

@@ -17,25 +17,6 @@ import appStore from "./utils/appStore";
 
 const RestaurantInfo = lazy(() => import("./features/restaurant/RestaurantInfo"));
 
-/**
- * APP LAYOUT
- * - Header
- *     - Logo
- *     - Menu items
- * - Body
- *     - Top restaurant slider
- *     - Restaurant Container
- *          - Restaurant Card
- *              - Name
- *              - Image
- *              - Rating
- *              - Cuisines
- *              - Expected delivery time
- *              - Location
- * - Footer
- *
- */
-
 // const About = Lazy(() => import("./components/About"))
 // const Cart = Lazy(() => import("./components/Cart"))
 const Footer = () => {}
@@ -43,21 +24,21 @@ const Footer = () => {}
 const AppLayout = () => {
     const isDarkMode = useSelector((store) => store.theme.isDarkMode);
     const [userName, setUserName] = useState("")
+    const contextValue = {
+      userName,
+      email: "guest@mail.com",
+      phone: "1111",
+      setUserName,
+      isAuthenticated: true,
+    };
 
     useEffect(() => {
-        /**
-         * * make an api call to fetch user data
-         * store this user data in a state variable
-         */
         setUserName("New User")
     }, [])
         return (
-            <UserContext.Provider value={{ userName: userName,
-              email : "guest@mail.com", phone: "1111",
-              setUserName: setUserName, isAuthenticated: true }}>
-            <div
-              id="app-layout"
-              className={isDarkMode ? "bg-black text-white min-h-screen" : "bg-white text-black min-h-screen"}
+            <UserContext.Provider value={ contextValue }>
+            <div id="app-layout"
+                className={isDarkMode ? "bg-black text-white min-h-screen" : "bg-white text-black min-h-screen"}
             >
               <Header />
               <Outlet />

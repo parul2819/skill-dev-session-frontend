@@ -20,7 +20,7 @@ const MenuItem = () => {
         setError("");
 
         // const response = await fetch("http://127.0.0.1:8000/menu-items/");
-        const response = await axios.get("http://127.0.0.1:8000/menu-items/");
+        const response = await axios.get("http://127.0.0.1:8000/menu-items/"); //correct this + constant --- menu-items
 
         // const data = await response.json();
         const allMenuItems = Array.isArray(response.data) ? response.data : response.data.results || [];
