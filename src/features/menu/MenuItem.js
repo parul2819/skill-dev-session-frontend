@@ -2,8 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import {useSelector} from "react-redux";
-import MenuItemCard from "./MenuItemCard";
-import MenuItemCount from "./MenuItemCount";
+import MenuItemCard from "@features/menu/MenuItemCard";
+import MenuItemCount from "@features/menu/MenuItemCount";
 
 const MenuItem = () => {
   const {restaurantId} = useParams();

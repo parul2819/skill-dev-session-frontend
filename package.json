@@ -6,6 +6,12 @@
     "start": "parcel index.html",
     "test": "jest"
   },
+  "alias": {
+    "@components/*": "./src/components/$1",
+    "@utils/*": "./src/utils/$1",
+    "@features/*": "./src/features/$1",
+    "@shared/*": "./src/shared/$1"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

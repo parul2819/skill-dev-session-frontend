@@ -1,6 +1,6 @@
 import RestaurantCard from "./RestaurantCard";
 import useRestaurantList from "./useRestaurantList";
-import RestaurantShimmer from "../restaurant/RestaurantShimmer";
+import RestaurantShimmer from "@features/restaurant/RestaurantShimmer";
 import {useEffect} from "react";
 import WithRestaurantCard from "../restaurant/WithRestaurantCard";
 

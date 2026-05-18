@@ -1,6 +1,6 @@
 import {configureStore} from "@reduxjs/toolkit";
-import cart from "../features/cart/cartSlice";
-import theme from "./themeSlice"
+import cart from "@features/cart/cartSlice";
+import theme from "@utils/themeSlice"
 
 const appStore = configureStore({
     reducer:{

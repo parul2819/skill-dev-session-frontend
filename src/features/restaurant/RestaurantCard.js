@@ -1,7 +1,7 @@
 import {useContext} from "react";
 import {useSelector} from "react-redux";
 import { Link } from "react-router";
-import UserContext from "../../utils/UserContext";
+import UserContext from "@utils/UserContext";
 
 const RestaurantCard = (props) => {
   const { userName } = useContext(UserContext);
@@ -11,21 +11,22 @@ const RestaurantCard = (props) => {
 
   return (
     <Link to={`/restaurant/${restaurant_id}`}
-        className={`restaurant-card p-[10px] w-[265px] m-[20px] ${
-        isDarkMode ? "bg-gray-800 text-white" : "bg-[#f0f0f0] text-black"
+        className={`restaurant-card m-[20px] w-[265px] overflow-hidden rounded-2xl border shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:shadow-md ${
+        isDarkMode ? "border-slate-700 bg-slate-800 text-slate-100" : "border-rose-100 bg-gradient-to-br from-white via-rose-50/60 to-sky-50/60 text-slate-900"
         }`}>
         <img
           alt="Restaurant"
           loading="lazy"
           src={`https://picsum.photos/300/200?random=${restaurant_id}`}
+          className="h-[180px] w-full object-cover"
         />
 
-      <div className="restaurant-card-body p-[0px_10px]">
-        <h3 className="m-[10px_0px]">{name}</h3>
-        <h4 className="m-[10px_0px]">{status}</h4>
-        <span>{address || "No address added"}</span>
-        <span>{phone_number || "No phone number added"}</span>
-        <p className="my-text-sm text-gray-600"> User: { userName }</p>
+      <div className="restaurant-card-body space-y-2 p-4">
+        <h3 className="text-base font-semibold">{name}</h3>
+        <h4 className="text-sm text-slate-600">{status}</h4>
+        <span className="block text-sm text-slate-600">{address || "No address added"}</span>
+        <span className="block text-sm text-slate-600">{phone_number || "No phone number added"}</span>
+        <p className="text-sm text-slate-500">User: {userName}</p>
       </div>
     </Link>
   );

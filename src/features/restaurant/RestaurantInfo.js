@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router";
-import MenuItem from "../menu/MenuItem";
+import MenuItem from "@features/menu/MenuItem";
 
 const RestaurantInfo = () => {
   const { restaurantId } = useParams();

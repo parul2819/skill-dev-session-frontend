@@ -38,7 +38,7 @@ const AppLayout = () => {
         return (
             <UserContext.Provider value={ contextValue }>
             <div id="app-layout"
-                className={isDarkMode ? "bg-black text-white min-h-screen" : "bg-white text-black min-h-screen"}
+                className={`${isDarkMode ? "bg-slate-950 text-slate-100" : "bg-gradient-to-b from-rose-50 via-white to-sky-50 text-slate-900"} min-h-screen antialiased`}
             >
               <Header />
               <Outlet />
