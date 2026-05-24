@@ -2,6 +2,7 @@ import {useContext} from "react";
 import {useSelector} from "react-redux";
 import { Link } from "react-router";
 import UserContext from "@utils/UserContext";
+import { RESTAURANT_CARD_IMAGE_BASE_URL } from "@utils/constants";
 
 const RestaurantCard = (props) => {
   const { userName } = useContext(UserContext);
@@ -17,7 +18,7 @@ const RestaurantCard = (props) => {
         <img
           alt="Restaurant"
           loading="lazy"
-          src={`https://picsum.photos/300/200?random=${restaurant_id}`}
+          src={`${RESTAURANT_CARD_IMAGE_BASE_URL}${restaurant_id}`}
           className="h-[180px] w-full object-cover"
         />
 

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import api from "@utils/api"
 import { RESTAURANT_API_URL } from "@utils/api";
+import {getRestaurantList} from "@features/restaurant/restaurantApi";
 
 const useRestaurantList = () => {
 
@@ -22,8 +23,7 @@ const useRestaurantList = () => {
 
     const fetchRestaurantData = async (signal) => {
         try {
-            const response = await api.get(RESTAURANT_API_URL, { signal });
-
+            const response = await getRestaurantList(signal)
             // setRestaurantList(response.data.slice(0, 20));
             setRestaurantList(Array.isArray(response.data) ? response.data.slice(0, 20) : response.data.results || []);
         } catch (err) {

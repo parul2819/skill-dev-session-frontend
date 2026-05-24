@@ -1,7 +1,8 @@
 import axios from "axios";
+import {API_BASE_URL} from "@utils/constants";
 
 const api = axios.create({
-    baseURL: "http://127.0.0.1:8000",
+    baseURL: API_BASE_URL,
     timeout: 20000
 });
 
@@ -19,8 +20,8 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-const RESTAURANT_API_URL = "/restaurants/";
+//
+// const RESTAURANT_API_URL = "/restaurants/";
 // const MENU_ITEMS_API_URL = "/menu-items/";
 
 export { RESTAURANT_API_URL };

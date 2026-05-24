@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import {useSelector} from "react-redux";
 import MenuItemCard from "@features/menu/MenuItemCard";
 import MenuItemCount from "@features/menu/MenuItemCount";
+import {API_BASE_URL, MENU_ITEMS_API_URL} from "@utils/constants";
 
 const MenuItem = () => {
   const {restaurantId} = useParams();
@@ -21,7 +22,8 @@ const MenuItem = () => {
 
         // const response = await fetch("http://127.0.0.1:8000/menu-items/");
         const menuItemsResponse = await axios.get(
-            "http://127.0.0.1:8000/menu-items/"
+            API_BASE_URL + MENU_ITEMS_API_URL
+            // "http://127.0.0.1:8000/menu-items/"
         );
 
         // const data = await response.json();

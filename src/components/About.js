@@ -1,4 +1,6 @@
 const About = () => {
+    throw new Error("Test error boundary");
+
     return (
         <>
             <div className="about-page p-[100px_16px_16px]">
